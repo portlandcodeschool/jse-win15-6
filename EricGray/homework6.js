@@ -37,3 +37,63 @@ var objB = new B();
 console.log('The nearest I can find to the difference between objA and ObjB is that if you look at their individual __proto__\'s, A points to Object, while B points to B.')
 console.log('In addition, looking at their constuctors, A points to function Object, while B points to function B')
 console.log('This means that A is pointing to the prototype Object function, while I believe that B is pointing to the class function.')
+
+//Question 2
+console.log("Question 2, part A");
+
+function Animal(name){
+	this.name = name;
+};
+
+Animal.prototype.move = function(){
+	return "walk"
+};
+
+function Bird(name){
+	this.name = name;
+};
+Bird.prototype = new Animal();
+Bird.prototype.constructor = Bird;
+Bird.prototype.hasWings = true;
+Bird.prototype.move = function(){
+	return "fly"
+};
+
+function Fish(name){
+	this.name = name;
+};
+
+Fish.prototype = new Animal();
+Fish.prototype.construtor = Fish;
+Fish.prototype.move = function(){
+	return "swim";
+};
+
+function Penguin(name){
+	this.name = name;
+}
+Penguin.prototype = new Bird()
+Penguin.prototype.constructor = Penguin;
+Penguin.prototype.move = Fish.prototype.move;
+
+new Animal("Simba").move();// 'walk'
+new Fish("Nemo").move();// 'swim'
+new Bird("Lulu").move();// 'fly'
+var pengo = new Penguin("Pengo");
+pengo.name;     // "Pengo"
+pengo.move();   //'swim'
+pengo.hasWings; //true;
+pengo instanceof Penguin; //true
+pengo instanceof Bird;    //true
+pengo instanceof Animal;  //true
+
+console.log(new Animal("Simba").move());// 'walk'
+console.log(new Fish("Nemo").move());// 'swim'
+console.log(new Bird("Lulu").move());// 'fly'
+//console.log(var pengo = new Penguin("Pengo"));
+console.log(pengo.name);     // "Pengo"
+console.log(pengo.move());   //'swim'
+console.log(pengo.hasWings); //true;
+console.log(pengo instanceof Penguin); //true
+console.log(pengo instanceof Bird);    //true
+console.log(pengo instanceof Animal);  //true
