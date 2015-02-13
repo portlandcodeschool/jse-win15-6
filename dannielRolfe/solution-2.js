@@ -52,12 +52,11 @@ var Fish = (function(){
 var Penguin = (function(){
 	function Penguin(){
 		Penguin.prototype.move = function(){
-			Animal.call(this,name);
 			Fish.call(this);
+			// Penguin.protoype.move = Fish.prototype.move;
 		}
 	}
 
-	Penguin.prototype.move = new Fish;
 	Animal.prototype = new Animal;
 	Fish.prototype.constructor = Penguin;
 
