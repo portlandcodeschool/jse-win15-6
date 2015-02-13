@@ -29,4 +29,49 @@ function B() {};
 B.prototype.num = 0;
 B.prototype.str = 'default';
 var objB = new B();
-//
+//2
+
+var Animal = (function(){
+	function Animal(){
+		Animal.prototype.move = function(){
+			return "walk";
+		}
+		Animal.prototype.look = function(){
+			return "watch out";
+		}	
+	}
+	return Animal;
+})();
+
+var Bird = (function(){
+	function Bird(){
+		Bird.prototype.move = function(){
+			return "fly";
+		}
+	}
+	Bird.prototype = new Animal;
+	Animal.prototype.constructor = Bird;
+	return Bird;
+})();
+
+var Fish = (function(){
+	function Fish(){
+		Fish.prototype.move = function(){
+			return "swim";
+		}
+	}
+	Fish.prototype = new Animal;
+	Animal.prototype.constructor = Fish;
+	return Fish;
+})();
+
+
+var Penguin = (function(){
+	function Penguin(){
+		}
+		
+	Penguin.prototype.move = new Fish;
+	Penguin.prototype = new Bird;
+	Bird.prototype.constructor = Penguin;
+	return Penguin;
+})();
