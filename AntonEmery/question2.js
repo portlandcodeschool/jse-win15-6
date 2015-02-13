@@ -8,13 +8,11 @@ function Animal(name) {
 
 	Animal.prototype.move = function(){return 'walk';};
 	
-		Bird.prototype = Object.create(Animal.prototype);		
-		//Bird.prototype.constructor = Bird;
+		
 
 	//subclass of animal
-	function Bird() {
-		this.name = name;
-		Animal.call(this);
+	function Bird(name) {
+		Animal.call(name);
 		canFly = true;
 		//some sort of if statement? look in Headfirst JS book
 		hasWings = true;
@@ -25,7 +23,8 @@ function Animal(name) {
 		};
 	}
 		
-
+	Bird.prototype = Object.create(Animal.prototype);
+	
 				
 			//sub class of bird
 			function Penguin () {
