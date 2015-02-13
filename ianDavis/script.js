@@ -48,9 +48,12 @@ var Bird = (function(){
 		Bird.prototype.move = function(){
 			return "fly";
 		}
+		Bird.prototype.whatami = function(){
+			return "I am a bird!";
+		}
 	}
-	Bird.prototype = new Animal;
-	Animal.prototype.constructor = Bird;
+	Bird.prototype = new Animal();
+	Bird.prototype.constructor = Bird;
 	return Bird;
 })();
 
@@ -60,18 +63,19 @@ var Fish = (function(){
 			return "swim";
 		}
 	}
-	Fish.prototype = new Animal;
-	Animal.prototype.constructor = Fish;
+	Fish.prototype = new Animal();
+	Fish.prototype.constructor = Fish;
 	return Fish;
 })();
 
 
 var Penguin = (function(){
 	function Penguin(){
+		Penguin.prototype.move = function(){
+			return "swim";
 		}
-		
-	Penguin.prototype.move = new Fish;
-	Penguin.prototype = new Bird;
-	Bird.prototype.constructor = Penguin;
+	}
+	Penguin.prototype = new Bird();
+	Penguin.prototype.constructor = Penguin;
 	return Penguin;
 })();
