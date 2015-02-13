@@ -1,23 +1,29 @@
 /* Question 2 */
 
 function Animal() {
-	this.move = function(){
-		return 'walk';
-
 	};
-	//every subclass needs to inherett move
-}
+	
+	//every subclass needs to inheret move
+
+	Animal.prototype.move = function(){return 'walk';};
+	
 
 	//subclass of animal
 	function Bird() {
 		Animal.call(this);
 		canFly = true;
 		//some sort of if statement? look in Headfirst JS book
-		move() should return fly
 		hasWings = true;
-	}
-
+		this.move = function() {
+			if(hasWings == true){
+				return 'fly';
+			}
+		}
+	}; 
+		
 	
+
+	/*
 	//subclass of animal
 	function Fish() {
 		move() return swim
@@ -29,4 +35,4 @@ function Animal() {
 		cannot fly
 		move() return swim?
 	}
-
+*/
