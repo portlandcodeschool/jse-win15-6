@@ -48,6 +48,15 @@ function Animal(name){
 Animal.prototype.move = function(){
 	return "walk"
 };
+Animal.prototype.layEgg = function(){
+/*	console.log('this is the this layegg ')						a mess of things
+	console.log(this); 											i didn't need.
+	var newBorn = new Egg();
+	newBorn.prototype = this.constructor;
+	newBorn.prototype.constructor = this.constructor;*/
+	return new Egg(this);
+
+}
 
 function Bird(name){
 	this.name = name;
@@ -89,7 +98,7 @@ pengo instanceof Animal;  //true
 
 console.log(new Animal("Simba").move());// 'walk'
 console.log(new Fish("Nemo").move());// 'swim'
-console.log(new Bird("Lulu").move());// 'fly'
+console.log(new Bird("Lulu").move());// 'fly'	
 //console.log(var pengo = new Penguin("Pengo"));
 console.log(pengo.name);     // "Pengo"
 console.log(pengo.move());   //'swim'
@@ -97,3 +106,40 @@ console.log(pengo.hasWings); //true;
 console.log(pengo instanceof Penguin); //true
 console.log(pengo instanceof Bird);    //true
 console.log(pengo instanceof Animal);  //true
+
+console.log('Question 2, Part B')
+
+function Egg(parent){
+	var parentSpecies = parent.constructor;
+	this.hatch = function(name){
+		return new parentSpecies(name);
+	};
+}
+
+/*helper function for Egg() -- But then I didn't need it!
+
+function matchInstance(name){
+	console.log(this);
+	if (this.name instanceof Penguin){
+		return Penguin;
+	} else if (this.name instanceof Fish){
+		return Fish;
+	} else if (this.name instanceof Bird){
+		return Bird;
+	} else {
+		return Animal;
+	}
+}
+*/
+var pengo = new Penguin("Pengo");
+var egg = pengo.layEgg();
+console.log('Is Pengo\'s egg constructor equal to Egg? ' + (egg.constructor === Egg)); //true
+var baby = egg.hatch("Penglet");
+console.log('Is Penglet an instance of Penguin? ' +(baby instanceof Penguin)); //true
+
+var nemo = new Fish("Nemo");
+egg = nemo.layEgg();
+console.log('Is nemo\'s egg\'s constructor equal to Egg? '+ (egg.constructor === Egg));
+baby = egg.hatch("Nemolet");
+console.log('Is Nemolet an instance of Fish? ' + (baby instanceof Fish));
+
