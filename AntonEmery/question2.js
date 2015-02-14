@@ -9,7 +9,7 @@ function Animal(name) {
 	//every subclass needs to inherit move
 	Animal.prototype.move = function(){return 'walk';};
 	Animal.prototype.layEgg = function(){
-		//new egg instance
+		new Egg();
 	};
 	
 		
@@ -57,7 +57,8 @@ function Animal(name) {
 
 function Egg() {
 	this.hatch = function(name) {
-		return new instance with name of baby should be same species as parent
+		this.name = name;
+		this.layEgg;
 	};
 }
 
