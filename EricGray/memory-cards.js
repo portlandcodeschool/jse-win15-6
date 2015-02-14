@@ -9,23 +9,24 @@ var MemoryCards = (function() {
 		//...
 		this.values = function() {
 			return comics.slice();
-		}
+		};
 
 		this.match = function(a,b) {
 			return ((this.values()[a].role===this.values()[b].role) && (this.values()[a].universe===this.values()[b].universe));
 
-		}
+		};
 
 		this.display = function(val) {
 			return this.values()[val].name;
 			
-		}
+		};
+
+	};
 		
-	}
 
 	//...
 	return Ctor;
 })();
 
 
-var game1 = new MemoryCards();
+var heroesAndVillains = new MemoryCards();

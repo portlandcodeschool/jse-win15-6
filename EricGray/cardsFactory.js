@@ -65,17 +65,7 @@ var Card = (function(){
 	Card.numCards = function() {
 			return 52;
 			}
-	
-/*
-	Card.rankNames = function(){
-		return /*splice['Ace','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten',
-                        'Jack','Queen','King']
-	}
 
-	Card.suitNames = function(){
-		return /*splice['Hearts','Diamonds','Spades','Clubs'];
-	}
-*/
 
 	return Card;
 
@@ -125,6 +115,7 @@ console.log('Begin Question 3, Part B: Tarot Turtle Time.');
 var TarotCard = (function(){
 	var TarotCard = function(id){
 		this.id = id;
+		//add functionality for which direction the card is facing//
 
 	}
 	TarotCard.prototype = new Card();
