@@ -59,7 +59,7 @@ var Fish = (function() {
     }
 
     Fish.prototype = new Animal();
-	Fish.prototype.constructor = Animal;
+	Fish.prototype.constructor = Fish;
 
 
     Fish.prototype.move = function() {
@@ -81,7 +81,7 @@ var Bird = (function() {
 	}
 
 	Bird.prototype = new Animal();
-	Bird.prototype.constructor = Animal;
+	Bird.prototype.constructor = Bird;
 
 	Bird.prototype.move = function() {
 		return 'fly';
@@ -100,7 +100,7 @@ var Penguin = (function() {
 	}
 
 	Penguin.prototype = new Bird();
-	Penguin.prototype.constructor = Bird;
+	Penguin.prototype.constructor = Penguin;
 
 	Penguin.prototype.move = function() {
 		return Fish.prototype.move();
@@ -183,13 +183,13 @@ Try to solve this without subclassing Egg and
 // 
 var Egg = (function() {
 	function Egg(speciesConstructor) {
-		this.eggHatchConstructor = speciesConstructor;
+		this.speciesConstructor = speciesConstructor;
 
 	}
 	
 	Egg.prototype.hatch = function(babyName) {
 		// TOFIX this does not fully populate the prototype chain, although the Ctor seems correct.. ?
-		return new this.eggHatchConstructor(babyName);
+		return new this.speciesConstructor(babyName);
 	};
 		
 	return Egg;
@@ -234,7 +234,7 @@ console.log("Nemolet obj returns " + fishBaby);
 assert( nemo.name === 'Nemo', "nemo.name FAIL");
 assert( fishBaby.name === 'Nemolet', "fishBaby.name FAIL");
 assert ( fishBaby.move() === 'swim', 'fishBaby.swim FAIL');
-assert ( fishBaby.hasWings === false, 'fishBaby.hasWings FAIL');
+assert ( fishBaby.hasWings !== true, 'fishBaby.hasWings FAIL');
 //assert ( fishBaby instanceof Fish  === true, 'FAIL baby instanceof Fish');
 console.log("\n--- END of Nemo Egg testing-----\n");
 
