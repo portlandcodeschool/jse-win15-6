@@ -4,13 +4,18 @@
 
 function Animal(name) {
 	this.name = name;
-	};
+	this.layEgg = function(species){
+		var egg = new Egg();
+		return egg;
+		};
+	}
 	
 	//every subclass needs to inherit move
 	Animal.prototype.move = function(){return 'walk';};
-	Animal.prototype.layEgg = function(){
-		new Egg();
-	};
+	// Animal.prototype.layEgg = function(name){
+	// 	//needs to create a new egg instance
+	// 	Animal.constructor = new Egg();
+	// };
 	
 		
 
@@ -56,10 +61,11 @@ function Animal(name) {
 /* b */
 
 function Egg() {
+	//return a new instance w the name of the baby which should be same species as the parent
 	this.hatch = function(name) {
-		this.name = name;
-		this.layEgg;
-	};
-}
+		return name;
+	}
+	
+};
 
 Egg.prototype.constructor = Egg;
