@@ -44,9 +44,14 @@ function Penguin(name) {
     Bird.call(this, name);
 }
 
-Penguin.prototype = new Bird();
+// Penguin.prototype = new Bird();
+// OR
+Penguin.prototype = Object.create(Bird.prototype); // same as Sub.prototype = new Super();
 Penguin.prototype.constructor = Penguin;
 Penguin.prototype.move = Fish.prototype.move;
+// var proto = new Bird();
+// Penguin.prototype = proto;
+// proto.constructor = Penguin;
 
 // Testing:
 var tiger = new Animal('Tig');
@@ -80,11 +85,11 @@ console.log((pengo instanceof Animal), "instanceof Animal");
 // Try to solve this without subclassing Egg and without implementing 
 // layEgg and hatch more than once.
 
-function Egg(mom) {
-//  var momCategory = mom.constructor;
+function Egg(parent) {
+//  var parentCategory = parent.constructor;
     this.hatch = function(name) {
-    // return new momCategory(name + 'let');
-        return new mom.constructor(name + 'let');
+    // return new parentCategory(name + 'let');
+        return new parent.constructor(name + 'let');
     };
 }
 
