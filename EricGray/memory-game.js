@@ -4,14 +4,22 @@ var MemoryGame = (function() {
 
 
 		this.reset = function() {
-			for (i = [0]; i < cardset.values().length; i++)
-				console.log(cardset.values().length);
+			console.log(cardset.values().length);
+			for (i = 0; i < cardset.values().length; i++){
 				console.log(cardset.values()[i]);
-				cardset.values()[i].faceup = false;
+				cardset.values()[i].faceup = false;}
 				console.log(cardset.values()[i]);
 		}
-		this.faceupWhere = function() {
-
+		
+		this.faceupValue = function() {                         //maybe better as for each?
+        var counter = 0;
+        for (i = 0; i < cardset.values().length; i++)
+                if (cardset.values()[i].faceup === true){
+                        return cardset.values()[i]
+                } else if (cardset.values()[i].faceup !== true){
+                        counter += 1};
+                if (counter = (cardset.values().length + 1)){
+                        return 'No cards face up!'};
 		}
 		this.faceupValue = function() {
 
@@ -20,7 +28,7 @@ var MemoryGame = (function() {
 
 		}
 		this.lift = function(where) {
-			if (cardset[where].faceup = false){
+			if (cardset[where].faceup === false){
 				return cardset[where].faceup = true
 			} else {
 				return 'Card is already faceup'
