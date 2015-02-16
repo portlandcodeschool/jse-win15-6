@@ -1,43 +1,46 @@
 // This IIFE will define a superclass:
 var Card = (function(){
+	//if (!isValid(id))
+	//	return null;
 
 	function Card(id) {
 		this.id = id;
 	}
 
-	//if (!isValid(id))
-	//	return null;
-
 	// Instance methods (attach these to Card's prototype):
 	Card.prototype.rank = function() {
 		return Math.floor(this.id/4)+1;
 	};
+
 	Card.prototype.suit = function() {
-        return (this.id%4)+1;
-    };
+    return (this.id%4)+1;
+  };
+
 	Card.prototype.name = function() {
 		var rankVal = this.rank();
-        var suitVal = this.suit();
-        return rankVal && suitVal &&
-            (rankNames[rankVal]+' of '+suitNames[suitVal]);
+    var suitVal = this.suit();
+      return rankVal && suitVal &&
+          (this.constructor.rankNames()[rankVal]+' of '+this.constructor.suitNames()[suitVal]);
 	};
+
 	Card.prototype.color = function() {
 		var suitVal = this.suit();
-		return suitVal && ((suitVal<3)? "red": "black");
+		  return suitVal && ((suitVal<3)? "red": "black");
 	};
+  
+  console.log("Do not understand how to link this to prototype & then use it in Card.isCard without saving it as a variable")
 
-
+	Card.prototype.isValid = function(num) {
+    return ((typeof num)==="number") && 
+             (num%1 === 0) && 
+             num>=0 && num<=51;
+  };
+	
 	// Private data:
-	var isValid = function(num) { // Returns--> true, false
-        return ((typeof num)==="number") //correct type
-                && (num%1 === 0)        //integer
-                && num>=0 && num<=51;   //in range
-    };
 
-	var rankNames = ['Ace','Two','Three','Four','Five','Six','Seven',
+	var rankNames = ['', 'Ace','Two','Three','Four','Five','Six','Seven',
                         'Eight','Nine','Ten','Jack','Queen','King'];
-	var suitNames = ['Hearts','Diamonds','Spades','Clubs'];
-
+	var suitNames = ['', 'Hearts','Diamonds','Spades','Clubs'];
 
 	var fullSet = [];
 	// loop to fill fullSet with 52 instances...
@@ -48,9 +51,10 @@ var Card = (function(){
 	// Class methods:
 
 	Card.isCard = function(card) {// return Boolean
-		return card && (typeof card === 'object') 
-			&& (card.name === name)
-            && ('id' in card) && isValid(card.id);
+		return card 
+						&& (typeof card === 'object') // check for null or primitive
+						&& (card.name === Card.name) // check at least one method
+      			//&& ('id' in card) && Card.isValid(card.id); // check id
 	};
 
 	Card.fullSet = function() {//return copy of private array
@@ -89,16 +93,18 @@ var TarotCard = (function(){ //<-- Superclass is parameter, but equals Card
 
 	// Override some other superclass methods and resources:
 
-	var suitNames = ["Cups","Pentacles","Swords","Wands"];
-	var rankNames = Card.rankNames(); // subclass ranks are derived from superclass Card,
-	rankNames.splice(10,1,"Page","Knight"); // but Jack gets replaced w. Page+Knight
+	var suitNames = ['', "Cups","Pentacles","Swords","Wands"];
+	var rankNames = ['', 'One','Two','Three','Four','Five','Six','Seven',
+                        'Eight','Nine','Ten','Page', 'Knight','Queen','King'];
 
 	Ctor.rankNames = function() {
 		return rankNames.slice();
 	};
+
 	Ctor.suitNames = function() {
 		return suitNames.slice();
 	};
+
 	Ctor.numCards = function() {
 		return 56;
 	};
@@ -146,11 +152,11 @@ assert(card51.isValid(),	"Test 16 failed");
 assert(!card52.isValid(),	"Test 17 failed");
 
 // Test Card.isCard:
-assert(Card.isCard(card0),  "Test 21 failed");
-assert(Card.isCard(card51), "Test 22 failed");
-assert(!Card.isCard(0),     "Test 23 failed");
-assert(!Card.isCard({}),    "Test 24 failed");
-assert(!Card.isCard(card52),"Test 25 failed");
+assert(Card.isCard(card0),  "Test 21 failed"); // false
+assert(Card.isCard(card51), "Test 22 failed"); // false
+assert(!Card.isCard(0),     "Test 23 failed"); // true
+assert(!Card.isCard({}),    "Test 24 failed"); // true
+assert(!Card.isCard(card52),"Test 25 failed"); // true
 
 // Now test Tarot cards!
 var tarot0 = new TarotCard(0);
@@ -180,9 +186,8 @@ assert(tarot55.isValid(),	"Test 66 failed");
 assert(!tarot56.isValid(),	"Test 67 failed");
 
 // Test TarotCard.isCard:
-assert(TarotCard.isCard(tarot0),  "Test 71 failed");
-assert(TarotCard.isCard(tarot55), "Test 72 failed");
-assert(!TarotCard.isCard(0),     "Test 73 failed");
-assert(!TarotCard.isCard({}),    "Test 74 failed");
-assert(!TarotCard.isCard(tarot56),"Test 75 failed");
-
+assert(TarotCard.isCard(tarot0),  "Test 71 failed"); // false
+assert(TarotCard.isCard(tarot55), "Test 72 failed"); // false
+assert(!TarotCard.isCard(0),     "Test 73 failed"); // true
+assert(!TarotCard.isCard({}),    "Test 74 failed"); // true
+assert(!TarotCard.isCard(tarot56),"Test 75 failed"); // true
