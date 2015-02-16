@@ -7,14 +7,13 @@ var Animal = (function () {
 	function Animal(name) {
 		this.name = name;
 		this.layEgg = function() {
-			return (new Egg());
+			return (new Egg(this.__proto__.constructor));
 		};
 	}
 
 	Animal.prototype.move = function () {
 		return 'walk';
 	}
-
 
 	return Animal;
 })();
@@ -90,9 +89,9 @@ pengo instanceof Animal;  //true
 //---------------------------
 
 var Egg = (function () {
-	function Egg() {
+	function Egg(cons) {
 		this.hatch = function (name) {
-			return (new this.__proto__.constructor(name));
+			return (new cons(name));
 		};
 	}
 	return Egg;

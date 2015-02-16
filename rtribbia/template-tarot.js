@@ -3,24 +3,43 @@ var Card = (function(){
 
 	// Ctor:
 	function Card(id) {
-		//...
+		this.id = function () {
+			return id;
+		}
 	}
 
-
+	function isInt(n) { return ((n%1 === 0) && (typeof n === 'number')); }
+    function inRange(n,a,z) { return ((n >= a) && (n <= z));}
+    
 	// Instance methods (attach these to Card's prototype):
 
-	//rank...
+    Card.prototype.rank = function() {
+        return Math.floor(this.id() / 4) + 1;
+    }
 
-	//suit...
+    Card.prototype.suit = function() {
+        return (this.id() % 4) + 1;
+    }
 
-	//name...
+    Card.prototype.color = function() { // -->"red,"black",NaN
+        var b = Math.floor(((this.id() / 2) % 2));
+        return b?'black':'red';
+    }
 
-	//color...
+    Card.prototype.cardName = function() { //--> string, NaN
+        return this.constructor.rankNames()[this.rank() - 1] + ' of ' + this.constructor.suitNames()[this.suit() - 1];
+    }
+
+    Card.prototype.isValid = function () {
+
+    	return ((inRange(this.id(),0,(this.constructor.numCards() - 1))) && (isInt(this.id())));
+    }
+
 
 
 	// Private data:
-	var rankNames = [/*...*/];
-	var suitNames = [/*...*/];
+	var rankNames = ["Ace","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King"];
+	var suitNames = ["Hearts", "Diamonds", "Spades", "Clubs"];
 
 
 	var fullSet = [];
@@ -30,6 +49,7 @@ var Card = (function(){
 	// Class methods:
 
 	Card.isCard = function(thing) {// return Boolean
+		return ((thing instanceof Card) && thing.isValid());
 		//...
 	}
 
@@ -119,8 +139,8 @@ assert(card5.suit()===2,  "Test 5 failed");
 assert(card51.suit()===4, "Test 6 failed");
 assert(card0.color()==='red',   "Test 10 failed");
 assert(card3.color()==='black', "Test 11 failed");
-assert(card5.name()==='Two of Diamonds', "Test 12 failed");
-assert(card51.name()==='King of Clubs',  "Test 13 failed");
+assert(card5.cardName()==='Two of Diamonds', "Test 12 failed");
+assert(card51.cardName()==='King of Clubs',  "Test 13 failed");
 
 assert(card0.isValid(),		"Test 15 failed");
 assert(card51.isValid(),	"Test 16 failed");
@@ -151,10 +171,10 @@ assert(tarot5.suit()===2,  "Test 55 failed");
 assert(tarot55.suit()===4, "Test 56 failed");
 assert(!tarot0.color,   "Test 60 failed");
 
-assert(tarot5.name()==='Two of Pentacles', 	"Test 61 failed");
-assert(tarot40.name()==='Page of Cups',  	"Test 62 failed");
-assert(tarot46.name()==='Knight of Swords', "Test 63 failed");
-assert(tarot55.name()==='King of Wands',  	"Test 64 failed");
+assert(tarot5.cardName()==='Two of Pentacles', 	"Test 61 failed");
+assert(tarot40.cardName()==='Page of Cups',  	"Test 62 failed");
+assert(tarot46.cardName()==='Knight of Swords', "Test 63 failed");
+assert(tarot55.cardName()==='King of Wands',  	"Test 64 failed");
 
 assert(tarot0.isValid(),	"Test 65 failed");
 assert(tarot55.isValid(),	"Test 66 failed");
