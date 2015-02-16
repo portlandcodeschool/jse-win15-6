@@ -25,7 +25,13 @@ var Card = (function(){
 	
 	//name...
 	Card.prototype.name = function() {
-		return rankNames[(this.rank(this.id) - 1)] + ' of ' + suitNames[(this.suit(this.id) - 1)];
+		var localNames = [];
+		localNames = this.constructor.rankNames();
+		var localSuit = [];
+		localSuit = this.constructor.suitNames();
+
+		return localNames[(this.rank(this.id) - 1)] + ' of ' + localSuit[(this.suit(this.id) - 1)];
+
 	}
 	
 	//color...
@@ -42,7 +48,7 @@ var Card = (function(){
 	}
 
 	Card.prototype.isValid = function() {
-		if ((this.id >= 0) && (this.id < 52)) {
+		if ((this.id >= 0) && (this.id < this.constructor.numCards()) && (this.id%1 == 0)) {
 			return true;
 		} else {
 			return false;
@@ -124,7 +130,7 @@ var TarotCard = (function(){ //<-- Superclass is parameter, but equals Card
 	Ctor.numCards = function() {
 		return 56;
 	}
-
+	
 	// Replace default prototype so that subclass inherits from superclass Card
 	var proto = (Ctor.prototype = Object.create(Card.prototype));
 	proto.constructor = Ctor;
@@ -174,37 +180,37 @@ assert(!Card.isCard(0),     "Test 23 failed");
 assert(!Card.isCard({}),    "Test 24 failed");
 assert(!Card.isCard(card52),"Test 25 failed");
 
-// // Now test Tarot cards!
-// var tarot0 = new TarotCard(0);
-// var tarot3 = new TarotCard(3);
-// var tarot5 = new TarotCard(5);
-// var tarot40 = new TarotCard(40);
-// var tarot46 = new TarotCard(46);
-// var tarot55 = new TarotCard(55);
-// var tarot56 = new TarotCard(56); // invalid when tested
+// Now test Tarot cards!
+var tarot0 = new TarotCard(0);
+var tarot3 = new TarotCard(3);
+var tarot5 = new TarotCard(5);
+var tarot40 = new TarotCard(40);
+var tarot46 = new TarotCard(46);
+var tarot55 = new TarotCard(55);
+var tarot56 = new TarotCard(56); // invalid when tested
 
-// // Test instance methods:
-// assert(tarot0.rank()===1,  "Test 51 failed");
-// assert(tarot3.rank()===1,  "Test 52 failed");
-// assert(tarot55.rank()===14,"Test 53 failed");
-// assert(tarot0.suit()===1,  "Test 54 failed");
-// assert(tarot5.suit()===2,  "Test 55 failed");
-// assert(tarot55.suit()===4, "Test 56 failed");
-// assert(!tarot0.color,   "Test 60 failed");
+// Test instance methods:
+assert(tarot0.rank()===1,  "Test 51 failed");
+assert(tarot3.rank()===1,  "Test 52 failed");
+assert(tarot55.rank()===14,"Test 53 failed");
+assert(tarot0.suit()===1,  "Test 54 failed");
+assert(tarot5.suit()===2,  "Test 55 failed");
+assert(tarot55.suit()===4, "Test 56 failed");
+assert(!tarot0.color,   "Test 60 failed");
 
-// assert(tarot5.name()==='Two of Pentacles', 	"Test 61 failed");
-// assert(tarot40.name()==='Page of Cups',  	"Test 62 failed");
-// assert(tarot46.name()==='Knight of Swords', "Test 63 failed");
-// assert(tarot55.name()==='King of Wands',  	"Test 64 failed");
+assert(tarot5.name()==='Two of Pentacles', 	"Test 61 failed");
+assert(tarot40.name()==='Page of Cups',  	"Test 62 failed");
+assert(tarot46.name()==='Knight of Swords', "Test 63 failed");
+assert(tarot55.name()==='King of Wands',  	"Test 64 failed");
 
-// assert(tarot0.isValid(),	"Test 65 failed");
-// assert(tarot55.isValid(),	"Test 66 failed");
-// assert(!tarot56.isValid(),	"Test 67 failed");
+assert(tarot0.isValid(),	"Test 65 failed");
+assert(tarot55.isValid(),	"Test 66 failed");
+assert(!tarot56.isValid(),	"Test 67 failed");
 
-// // Test TarotCard.isCard:
-// assert(TarotCard.isCard(tarot0),  "Test 71 failed");
-// assert(TarotCard.isCard(tarot55), "Test 72 failed");
-// assert(!TarotCard.isCard(0),     "Test 73 failed");
-// assert(!TarotCard.isCard({}),    "Test 74 failed");
-// assert(!TarotCard.isCard(tarot56),"Test 75 failed");
+// Test TarotCard.isCard:
+assert(TarotCard.isCard(tarot0),  "Test 71 failed");
+assert(TarotCard.isCard(tarot55), "Test 72 failed");
+assert(!TarotCard.isCard(0),     "Test 73 failed");
+assert(!TarotCard.isCard({}),    "Test 74 failed");
+assert(!TarotCard.isCard(tarot56),"Test 75 failed");
 
