@@ -16,16 +16,23 @@ var MemoryGame = (function() {
 		}
 
 		this.faceupWhere = function() {
-			board.forEach(function (x){  if (x[1]) { return x[0]; } });
-			return false;
+			var r = false;
+			for (var i = 0; i < board.length; i++) {
+				if (board[i][1]) { r = i; }
+			}
+			return r;
+
 		}
 		this.faceupValue = function() {
-
+			var loc = this.faceupWhere();
+			if (loc != false) { return cardset.display(board[loc][0]); }
 		}
 		this.remaining = function() {
 
 		}
-		this.lift = function() {
+		this.lift = function(where) {
+	
+			return (board[where][1])?false:cardset.display(board[where][0])
 
 		}
 
