@@ -18,7 +18,7 @@ var MemoryGame = (function() {
 		this.faceupWhere = function() {
 			var r = false;
 			for (var i = 0; i < board.length; i++) {
-				if (board[i][1]) { r = i; }
+				if (board[i][1]) { r = i; break; }
 			}
 			return r;
 
