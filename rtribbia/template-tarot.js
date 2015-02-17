@@ -43,6 +43,7 @@ var Card = (function(){
 
 
 	var fullSet = [];
+	for (var i = 0; i < 52; i++) { fullSet.push(new Card(i)); }
 	// loop to fill fullSet with 52 instances...
 
 
