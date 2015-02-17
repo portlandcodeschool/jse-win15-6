@@ -16,13 +16,13 @@ Animal.prototype.move = function move(){
 
 Animal.prototype.layEgg = function () {
     return new Egg(name);
-}
+};
 
 var Egg = function(nameString){
   this.hatch = function(name){
     return new nameString.constructor(name);
   };
-}
+};
 
 var cat = new Animal("Macsi");
 cat.move();
