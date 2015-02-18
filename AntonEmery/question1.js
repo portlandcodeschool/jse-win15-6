@@ -1,4 +1,4 @@
-/*1a*/
+/* 1a */
 
 function Ctor(a, b) {
 this.a = a;
