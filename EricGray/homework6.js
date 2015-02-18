@@ -54,7 +54,7 @@ Animal.prototype.layEgg = function(){
 	var newBorn = new Egg();
 	newBorn.prototype = this.constructor;
 	newBorn.prototype.constructor = this.constructor;*/
-	return new Egg(this);
+	return new Egg(this.constructor);
 
 }
 
@@ -69,17 +69,17 @@ Bird.prototype.move = function(){
 };
 
 function Fish(name){
-	this.name = name;
+	Animal.call(this, name);
 };
 
 Fish.prototype = new Animal();
-Fish.prototype.construtor = Fish;
+Fish.prototype.constructor = Fish;
 Fish.prototype.move = function(){
 	return "swim";
 };
 
 function Penguin(name){
-	this.name = name;
+	Bird.call(this, name);
 }
 Penguin.prototype = new Bird()
 Penguin.prototype.constructor = Penguin;
@@ -109,10 +109,9 @@ console.log(pengo instanceof Animal);  //true
 
 console.log('Question 2, Part B')
 
-function Egg(parent){
-	var parentSpecies = parent.constructor;
+function Egg(Species){
 	this.hatch = function(name){
-		return new parentSpecies(name);
+		return new Species(name);
 	};
 }
 

@@ -12,12 +12,13 @@ var MemoryCards = (function() {
 		};
 
 		this.match = function(a,b) {
-			return ((this.values()[a].role===this.values()[b].role) && (this.values()[a].universe===this.values()[b].universe));
+			return ((a.role===b.role) && (a.universe===b.universe));
 
 		};
 
 		this.display = function(val) {
-			return this.values()[val].name;
+			return val.name;
+			/*return this.values()[val].name;*/
 			
 		};
 
