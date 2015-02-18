@@ -83,6 +83,10 @@ var Bird = (function() {
 	Bird.prototype = new Animal();
 	Bird.prototype.constructor = Bird;
 
+// ALTERNATE FORM gives Bird.prototype none of the Animal properties
+//Bird.prototype = Object.create(Animal.prototype);
+
+
 	Bird.prototype.move = function() {
 		return 'fly';
 	};
