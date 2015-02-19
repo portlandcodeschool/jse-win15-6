@@ -8,24 +8,25 @@ function Animal(nameString) {
 // always different, you always want to change when you create one
 
 
-Animal.prototype.move = function move(){ 
+Animal.prototype.move = function(){ 
     return "walk"; 
 };
 // in the prototype, these are built in, the instances will inherit it, but can be overwritten in subclasses
  // not in function, because this way it can be overriden - in function it cant be changed
 
-Animal.prototype.layEgg = function () {
-    return new Egg(name);
-};
 
-var Egg = function(nameString){
+function Egg(Spieces){
   this.hatch = function(name){
-    return new nameString.constructor(name);
+    return new Spieces(name);
   };
 };
 
+Animal.prototype.layEgg = function () {
+    return new Egg(this.constructor); // ask for the constructor of the spieces that has the egg
+};
+
 var cat = new Animal("Macsi");
-cat.move();
+// cat.move();
 
 /*
 var egg = cat.layEgg();
@@ -50,10 +51,10 @@ Bird.prototype = new Animal();
 Bird.prototype.constructor = Bird;// makes it a constructor
 // pattern end
 
-Bird.prototype.move = function() {
+Bird.prototype.move = function() { // override the move method
     return 'fly';
 };
-Bird.prototype = {hasWings: true};
+Bird.prototype.hasWings = true;
 littleBird = new Bird("Zsuzsi");
 
 
