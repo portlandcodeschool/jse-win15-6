@@ -2,35 +2,62 @@
 var Card = (function(){
 
 	// Ctor:
-	function Card(id) {
-		//...
-	}
-
+	function Card(id) {			
+				this.id = id  //personal property			
+		}
 
 	// Instance methods (attach these to Card's prototype):
 
-	//rank...
+	 Card.prototype.rank = function() { // --> 1..13, NaN
+        return Math.floor(this.id/4)+1;
+    }
 
-	//suit...
+	
+    Card.prototype.suit = function() { // --> 1..4, NaN
+        return (this.id%4)+1;
+    }
+	
+	Card.prototype.name = function() { //--> string, NaN
+        var rankVal = this.rank();
+        var suitVal = this.suit();
+        return rankVal && suitVal &&
+            (this.constructor.rankNames()[rankVal-1]
+            +' of '						 		//-1 b/c no leading blank in arrays
+            +this.constructor.suitNames()[suitVal-1]);
+	}
 
-	//name...
-
-	//color...
-
-
+	
+	
+	Card.prototype.color = function() { // -->"red,"black",NaN
+		var suit=this.suit();
+		return suit && ((suit<3)? "red": "black");
+	}
+	
+	Card.prototype.isValid = function() { // Returns--> true, false
+        return ((typeof this.id)==="number") //correct type
+                && (this.id%1 === 0)        //integer
+                && this.id>=0 && this.id<=51;   //in range
+    }
+	
 	// Private data:
-	var rankNames = [/*...*/];
-	var suitNames = [/*...*/];
+	var rankNames = ['Ace','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten',
+                        'Jack','Queen','King'];
+	var suitNames = ['Hearts','Diamonds','Spades','Clubs'];
 
 
 	var fullSet = [];
-	// loop to fill fullSet with 52 instances...
-
+	for (var id=0; id<52; ++id) {
+		fullSet.push(id);
+	}
 
 	// Class methods:
 
 	Card.isCard = function(thing) {// return Boolean
-		//...
+			return (thing instanceof Card) 
+			/*return thing
+            && (typeof thing === 'object') // check for null or primitive
+            && (thing.name === Card.name) // check at least one method
+            && ('id' in thing) && isValid(id); //check id*/
 	}
 
 	Card.fullSet = function() {//return copy of private array
@@ -70,9 +97,9 @@ var TarotCard = (function(){ //<-- Superclass is parameter, but equals Card
 
 	// Override some other superclass methods and resources:
 
-	var suitNames = ["Cups","Pentacles","Swords","Wands"];
+	var suitNames = ['',"Cups","Pentacles","Swords","Wands"];
 	var rankNames = Card.rankNames(); // subclass ranks are derived from superclass Card,
-	rankNames.splice(10,1,"Page","Knight"); // but Jack gets replaced w. Page+Knight
+	rankNames.splice('',10,1,"Page","Knight"); // but Jack gets replaced w. Page+Knight
 
 	Ctor.rankNames = function() {
 		return rankNames.slice();
