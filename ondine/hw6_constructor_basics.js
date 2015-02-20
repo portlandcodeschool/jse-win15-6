@@ -49,12 +49,14 @@ console.log((obj3.b), "expect 1");
 // Add property c to obj1
 obj1.c = 2;
 console.log((obj1.c), "obj1.c => 2");
-console.log((obj2.c), "obj.2.c => expect undefined");
+console.log((obj2.c), "obj2.c => expect undefined");
 // obj2.c = undefined (because added property to instance only)
 // Ctor.prototype.c = 2;
 
 // Add property d to obj1 proto (four ways to refer to proto object) (what are they??)
 Ctor.prototype.d = 3;
+// or
+// obj1.constructor.prototype.d = 3;
 
 console.log((obj1.d), "obj1.d => expect 3");
 // obj1.d = 3
@@ -70,6 +72,7 @@ function A() {};
 //set default values for instances of A:
 A.prototype = {num:0, str:'default'}; // overwriting prototype of A completely (lose any other existing properties)
 var objA = new A();
+// objA.constructor is Object
 
 function B() {};
 // set default values for instances of B:
@@ -77,5 +80,4 @@ B.prototype.num = 0; // adds new property to prototype
 B.prototype.str = 'default'; // does not overwrite any other existing properties
 var objB = new B();
 
-// objA.num = 0
-// objA.str = 'default'
+// objB.constructor is B
