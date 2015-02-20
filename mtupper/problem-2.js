@@ -1,5 +1,5 @@
 /**
- * Created by michaelt on 2/16/15.
+ * Created by mtupper on 2/16/15.
  */
 
 // #2 Imaginary Menagerie
@@ -63,27 +63,35 @@ var Egg = (function() {
 })();
 
 
+// ====================
+// Testing suite as before...
+// ====================
 
-console.log(new Animal("Simba").move());// 'walk'
-console.log(new Fish("Nemo").move());// 'swim'
-console.log(new Bird("Lulu").move());// 'fly'
+function assert(claim,message) {
+    if (!claim) console.error(message);
+}
+
 var pengo = new Penguin("Pengo");
 var rio = new Bird("Blu");
-console.log(pengo.name);     // "Pengo"
-console.log(pengo.move());   //'swim'
-console.log(pengo.hasWings); //true;
-console.log(pengo instanceof Penguin); //true
-console.log(pengo instanceof Bird); 	  //true
-console.log(pengo instanceof Animal);  //true
-
-var pengo = new Penguin("Pengo");
 var egg = pengo.layEgg();
-console.log(egg.constructor === Egg); //true
-var baby = egg.hatch("Penglet");
-console.log(baby instanceof Penguin); //true
-
 var nemo = new Fish("Nemo");
+var baby = egg.hatch("Penglet");
+
+assert(new Animal("Simba").move() === "walk",   "Test 1 failed");
+assert(new Fish("Nemo").move() === "swim",      "Test 2 failed");
+assert(new Bird("Lulu").move() === "fly",       "Test 3 failed");
+assert(pengo.name === "Pengo",                  "Test 4 failed");
+assert(pengo.move() === "swim",                 "Test 5 failed");
+assert(pengo.hasWings === true,                 "Test 6 failed");
+assert(pengo instanceof Penguin === true,       "Test 7 failed");
+assert(pengo instanceof Bird === true,          "Test 8 failed");
+assert(pengo instanceof Animal === true,        "Test 9 failed");
+assert(egg.constructor === Egg,                 "Test 10 failed");
+assert(baby instanceof Penguin === true,        "Test 11 failed");
+
 egg = nemo.layEgg();
-console.log(egg.constructor === Egg); //true
 baby = egg.hatch("Nemolet");
-console.log(baby instanceof Fish); //true
+assert(egg.constructor === Egg,                 "Test 12 failed");
+assert(baby instanceof Fish === true,           "Test 13 failed");
+
+console.log('***** END PROBLEM #2 *****');
