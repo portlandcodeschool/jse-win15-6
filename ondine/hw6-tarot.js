@@ -1,11 +1,10 @@
 // This IIFE will define a superclass:
 var Card = (function(){
-	//if (!isValid(id))
-	//	return null;
 
 	function Card(id) {
 		this.id = id;
 	}
+	var numCards = 52;
 
 	// Instance methods (attach these to Card's prototype):
 	Card.prototype.rank = function() {
@@ -28,12 +27,13 @@ var Card = (function(){
 		  return suitVal && ((suitVal<3)? "red": "black");
 	};
   
-  console.log("Do not understand how to link this to prototype & then use it in Card.isCard without saving it as a variable")
+  console.log("All the isValid tests fail. Fixed by replacing 'num' with this.id")
 
-	Card.prototype.isValid = function(num) {
-    return ((typeof num)==="number") && 
-             (num%1 === 0) && 
-             num>=0 && num<=51;
+	Card.prototype.isValid = function() {
+    return ((typeof this.id)==="number")  
+          && (this.id%1 === 0)
+          && (this.id>=0)
+          && (this.id < this.constructor.numCards());
   };
 	
 	// Private data:
@@ -44,17 +44,17 @@ var Card = (function(){
 
 	var fullSet = [];
 	// loop to fill fullSet with 52 instances...
-	for (var id=0; id<52; ++id) {
+	for (var id=0; id<numCards; ++id) {
         fullSet.push(Card(id));
     }
 
 	// Class methods:
-
+  console.log("All the isCard tests fail.")
 	Card.isCard = function(card) {// return Boolean
 		return card 
 						&& (typeof card === 'object') // check for null or primitive
 						&& (card.name === Card.name) // check at least one method
-      			//&& ('id' in card) && Card.isValid(card.id); // check id
+      			&& ('id' in card) && Card.isValid(card.id); // check id
 	};
 
 	Card.fullSet = function() {//return copy of private array
@@ -70,7 +70,7 @@ var Card = (function(){
 	};
 
 	Card.numCards = function() {
-		return 52;
+		return numCards;
 	};
 
 	// Return constructor:
