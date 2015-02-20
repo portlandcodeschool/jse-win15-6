@@ -1,6 +1,8 @@
 var MemoryGame = (function() {
 
 	function Ctor(cardset) {
+		var slots, length, there;
+		
 		this.cards = cards.values();
 		this.cards.shuffle();
 		this.facedowns = [];
@@ -26,7 +28,7 @@ var MemoryGame = (function() {
 
 		};
 
-		function shuffle() {
+		function shuffle(cards) {
 		// Knuth-Fisher-Yates, modified from http://bost.ocks.org/mike/shuffle/
 			var end = cards.length, temp, i;
 	  			// While there remain elements to shuffle…
@@ -39,9 +41,6 @@ var MemoryGame = (function() {
 			    cards[i] = temp;
 	 		}
 	 	}
-
-
-	//...
 
 	return Ctor;
 
