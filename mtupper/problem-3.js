@@ -43,9 +43,9 @@ var Card = (function() {
             +' of '						 		//-1 b/c no leading blank in arrays
             +this.constructor.suitNames()[suitVal-1]);
     };
-    Card.prototype.isValid = function(id) {
-        return !(typeof id !== 'object' || thing.rank !== rank || !'id' in card || !isValidID(id));
-    };
+//    Card.prototype.isValid = function(id) {
+//        return !(typeof id !== 'object' || thing.rank !== rank || !'id' in card || !isValidID(id));
+//    };
 
     // Data sets
     var rankNames = [
