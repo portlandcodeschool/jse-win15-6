@@ -65,7 +65,7 @@ var Card = (function() {
     // Class Constructor Methods
 
     Card.isCard = function(card) {
-        return (card instanceof Card);
+        return (card instanceof Card) && card.isValid();
     };
     Card.numCards = function() {
         return numCards;
